@@ -1,2 +1,4 @@
 Django==4.2.4
 djangorestframework==3.14.0
+requests==2.31.0
+APScheduler==3.10.1
