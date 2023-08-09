@@ -15,7 +15,7 @@ class IIataRepository(ABC):
 
 class IataRepository(IIataRepository):
     def get_iata(self, iata: str) -> ReturnDict:
-        iata_obj = Iata.objects.filter(iata=iata).first()
+        iata_obj = Iata.objects.filter(iata_code=iata).first()
         return IataSerializer(iata_obj).data
 
     def create_iata(self, iata: str) -> Iata:
