@@ -148,7 +148,7 @@ class FlightCombination:
 
     def __init__(
         self,
-        price: Price,
+        price: float,
         outbound_flight: OutboundFlight,
         return_flight: OutboundFlight,
     ):
@@ -158,7 +158,7 @@ class FlightCombination:
 
     def to_dict(self):
         return {
-            "price": self.price.to_dict(),
+            "price": round(self.price, 4),
             "outbound_flight": self.outbound_flight.flight_data,
             "return_flight": self.return_flight.flight_data,
         }
