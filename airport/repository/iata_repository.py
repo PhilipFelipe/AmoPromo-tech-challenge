@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 from airport.models import Iata, IataSerializer
 from rest_framework.serializers import ReturnDict
+import logging
 
 
 class IIataRepository(ABC):
@@ -20,6 +21,6 @@ class IataRepository(IIataRepository):
 
     def create_iata(self, iata: str) -> Iata:
         obj, created = Iata.objects.get_or_create(iata_code=iata)
-        if not created:
-            print("Iata already exists")
+        if created:
+            logging.info(f"Iata '{iata}' created.")
         return obj
