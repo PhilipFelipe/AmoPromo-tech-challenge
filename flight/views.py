@@ -1,7 +1,7 @@
 from rest_framework.generics import ListAPIView
 from rest_framework.response import Response
 
-from flight.service.flight import MockAirlineIncIntegration, ValidationException
+from flight.service.mock_airlines import MockAirlinesIncService, ValidationException
 from flight.external.mock_airlines_inc_api import MockAirlineAPIConnector
 from airport.repository.iata_repository import IataRepository
 
@@ -17,7 +17,7 @@ class FlightsListAPIView(ListAPIView):
     ):
         mock_airline_api_connector = MockAirlineAPIConnector()
         iata_repository = IataRepository()
-        flight_service = MockAirlineIncIntegration(
+        flight_service = MockAirlinesIncService(
             mock_airline_api_connector, iata_repository
         )
         try:
@@ -27,6 +27,7 @@ class FlightsListAPIView(ListAPIView):
                 departure_date=departure_date,
                 return_date=return_date,
             )
+            flight_combinations = [f.to_dict() for f in flight_combinations]
         except ValidationException as error:
             return Response({"error": str(error)}, 400)
         return Response(flight_combinations, 200)
