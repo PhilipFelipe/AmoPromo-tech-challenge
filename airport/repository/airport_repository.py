@@ -25,13 +25,13 @@ class AirportRepository(IAirportsRepository):
         cached_data = cache.get("airports")
 
         if cached_data is not None:
-            logging.info("RETURNING CACHED AIRPORTS")
+            logging.info("Using cached airports data")
             return cached_data
 
         qs = Airport.objects.all()
         airports = AirportSerializer(qs, many=True).data
         cache.set("airports", airports, 60)
-        logging.info("RETURNING FRESH AIRPORTS")
+        logging.info("Caching airports data")
         return airports
 
     def update_airports(self, airport_list: list[dict]) -> None:
@@ -47,7 +47,7 @@ class AirportRepository(IAirportsRepository):
                 },
             )
             if created:
-                logging.info("Airport created")
+                logging.info(f"Airport '{airport['iata']}' created.")
 
         cache.delete("airports")
         logging.info("Reseting cached airports data")
