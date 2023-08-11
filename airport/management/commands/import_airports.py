@@ -3,12 +3,21 @@ from airport.tasks import AirportTask
 
 
 class Command(BaseCommand):
-    help = "Process external airport API daily at 6am"
+    help = "Process external airport API data and update the database"
 
     def handle(self, *args, **options):
         try:
+            self.stdout.write(
+                self.style.SUCCESS("Starting 'Domestic Airport API' data process")
+            )
             AirportTask().update_airports()
         except Exception as e:
-            self.stdout.write(self.style.ERROR(f"Erro ao processar dados da API: {e}"))
+            self.stdout.write(
+                self.style.ERROR(
+                    f"An error occurred during the 'Domestic Airport API' data process: {e}"
+                )
+            )
 
-        self.stdout.write(self.style.SUCCESS("Dados da API processados com sucesso"))
+        self.stdout.write(
+            self.style.SUCCESS("Data from 'Domestic Airport API' procesing finished!")
+        )
