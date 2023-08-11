@@ -10,7 +10,7 @@ from flight.entity.flight import Location
 from flight.service.mock_airlines import MockAirlinesIncService
 from flight.external.mock_airlines_inc_api import MockAirlineAPIConnector
 from flight.utils.calculate_flight_speed import calculate_flight_speed
-from flight.utils.calculate_cost_per_km import calculate_fare_per_km
+from flight.utils.calculate_cost_per_km import calculate_cost_per_km
 from flight.utils.haversine_formula import haversine_distance
 from airport.repository.iata_repository import IataRepository
 
@@ -43,7 +43,7 @@ def cruise_speed_kmh_example(distance_example):
 
 @pytest.fixture
 def cost_per_km_example(distance_example, fare_example):
-    cost_per_km = calculate_fare_per_km(fare=fare_example, distance=distance_example)
+    cost_per_km = calculate_cost_per_km(fare=fare_example, distance=distance_example)
     return cost_per_km
 
 
