@@ -72,9 +72,6 @@ body: {
     "username": "jonh_doe",
     "password": "test123
 }
-response: {
-    "token": "token-here"
-}
 
 # CURL
 curl -X POST -H "Content-Type: application/json" -d '{
@@ -82,6 +79,22 @@ curl -X POST -H "Content-Type: application/json" -d '{
    "password": ""
 }' http://localhost:8080/user/register
  ```
+
+### If you lose your token, there's no problem! You can retrieve it this way
+```
+POST - http://localhost:8080/user/obtain-token
+body: {
+    "username": "jonh_doe",
+    "password": "test123
+}
+
+# CURL
+curl -X POST -H "Content-Type: application/json" -d '{
+   "username": "",
+   "password": ""
+}' http://localhost:8080/user/obtain-token
+```
+
 ### Cool, now we have the token! Let's try using it
 ```
 # Our headers need to have an Authorization key
@@ -104,6 +117,9 @@ Don't forget that we need our token to access this resource.
 ```
 # The endpoint for consulting the airports
 GET - http://localhost:8080/airport/list
+
+# CURL
+curl -X GET -H "Authorization: Token {token}" http://localhost:8080/airport/list
 ```
  **Important**: When you send the first request, the data will be cached for one minute, during this time all requests will be obtained from the cache, with the exception of the airport database being updated with the custom command, in this case the cache will be reseted.
 
@@ -113,6 +129,9 @@ So, for the flights we will need to send some parameters directly on the endpoin
 ```
 # Endpoint
 GET - http://localhost:8080/flight/consult/:ORIGIN:/:DESTINATION:/:DEPARTURE_DATE:/:RETURN_DATE:
+
+# CURL
+curl -X GET -H "Authorization: Token {token}" http://localhost:8080/flight/consult/:ORIGIN:/:DESTINATION:/:DEPARTURE_DATE:/:RETURN_DATE:
 ```
  Notice that we have some parameters to fill. Let me explain them:
 
