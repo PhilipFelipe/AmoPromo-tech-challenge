@@ -47,11 +47,12 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-### Now, lets apply the Django migrations to setup our database
+### Now, lets apply the Django migrations and setup our database
 ```
 # Maybe just "py" will not work for you, so just try using "python3" instead
 py manage.py makemigrations
 py manage.py migrate
+py manage.py createcachetable
 ```
 
 ### Ok, now that our django and dabatase setup is done, what about we try running the docker?
@@ -74,6 +75,12 @@ body: {
 response: {
     "token": "token-here"
 }
+
+# CURL
+curl -X POST -H "Content-Type: application/json" -d '{
+   "username": "",
+   "password": ""
+}' http://localhost:8080/user/register
  ```
 ### Cool, now we have the token! Let's try using it
 ```
