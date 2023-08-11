@@ -1,3 +1,5 @@
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.generics import ListAPIView
 from rest_framework.response import Response
 
@@ -7,6 +9,9 @@ from airport.repository.iata_repository import IataRepository
 
 
 class FlightsListAPIView(ListAPIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
     def list(
         self,
         request,
