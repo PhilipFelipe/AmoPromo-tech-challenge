@@ -194,4 +194,4 @@ To the **authentication**, it was used the own django-rest-framework auth token
 Finally, for the **tests**, it was used the **pytest** lib, which is also simple, performatic and well-known!
 
 ## Personal commentary
- I know this topic was not required, but, I just want to mention that I really enjoyed this challenge! It was so good to think and feel free to solve a problem with my own concepts and ideas! Its far away from good haha, but It was made with love and dedication (and some vague hours haha). I'm just grateful for that, thank you guys from AmoPromo :)
+ I know this topic was not requested, but, I just want to mention that I really enjoyed this challenge! It was so good to think and feel free to solve a problem with my own concepts and ideas! Its far away from good haha, but It was made with love and dedication (and some vague hours haha). I'm just grateful for that, thank you guys from AmoPromo :)
