@@ -44,8 +44,8 @@ class Summary:
         return {
             "departure_date": self.departure_date,
             "currency": self.currency,
-            "origin": self.origin.__dict__,
-            "destination": self.destination.__dict__,
+            "origin": self.origin.to_dict(),
+            "destination": self.destination.to_dict(),
         }
 
 
@@ -59,9 +59,9 @@ class Price:
 
     def to_dict(self):
         return {
-            "fare": round(self.fare, 4),
-            "fees": round(self.fees, 4),
-            "total": round(self.total, 4),
+            "fare": round(self.fare, 2),
+            "fees": round(self.fees, 2),
+            "total": round(self.total, 2),
         }
 
 
@@ -89,9 +89,9 @@ class Meta:
 
     def to_dict(self):
         return {
-            "range": round(self.range, 4),
-            "cruise_speed_kmh": round(self.cruise_speed_kmh, 4),
-            "cost_per_km": round(self.cost_per_km, 4),
+            "range": round(self.range, 2),
+            "cruise_speed_kmh": round(self.cruise_speed_kmh, 2),
+            "cost_per_km": round(self.cost_per_km, 2),
         }
 
 
@@ -116,9 +116,9 @@ class Option:
         return {
             "departure_time": self.departure_time,
             "arrival_time": self.arrival_time,
-            "price": self.price.__dict__,
-            "aircraft": self.aircraft.__dict__,
-            "meta": self.meta.__dict__,
+            "price": self.price.to_dict(),
+            "aircraft": self.aircraft.to_dict(),
+            "meta": self.meta.to_dict(),
         }
 
 
