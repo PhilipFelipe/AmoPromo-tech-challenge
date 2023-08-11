@@ -1,4 +1,3 @@
-from unittest import mock
 import django
 import os
 
