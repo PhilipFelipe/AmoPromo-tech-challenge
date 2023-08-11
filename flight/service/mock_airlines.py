@@ -15,7 +15,7 @@ from flight.entity.flight import (
     Price,
     Aircraft,
     Meta,
-    Options,
+    Option,
     FlightCombination,
 )
 from flight.service.flight_adapter import IFlightAdapter
@@ -99,7 +99,7 @@ class MockAirlinesIncService(IFlightAdapter):
             destination=destination,
         )
 
-    def extract_options(self, flight_data: dict) -> list[Options]:
+    def extract_options(self, flight_data: dict) -> list[Option]:
         options = flight_data["options"]
         summary = flight_data["summary"]
 
@@ -115,22 +115,21 @@ class MockAirlinesIncService(IFlightAdapter):
                 total=option["price"]["total"],
             )
             meta = self.build_meta(
-                range=option["meta"]["range"],
-                cruise_speed_kmh=option["meta"]["cruise_speed_kmh"],
-                cost_per_km=option["meta"]["cost_per_km"],
-                distance_in_km=haversine_distance(
+                range=haversine_distance(
                     summary["from"]["lat"],
                     summary["from"]["lon"],
                     summary["to"]["lat"],
                     summary["to"]["lon"],
                 ),
+                cruise_speed_kmh=option["meta"]["cruise_speed_kmh"],
+                cost_per_km=option["meta"]["cost_per_km"],
                 departure_time=option["departure_time"],
                 arrival_time=option["arrival_time"],
                 fare=price.fare,
             )
 
             flight_options.append(
-                Options(
+                Option(
                     departure_time=option["departure_time"],
                     arrival_time=option["arrival_time"],
                     price=price,
@@ -162,7 +161,7 @@ class MockAirlinesIncService(IFlightAdapter):
         price = Price(fare, fees, total)
 
         # Calculates the fees based on established rule
-        fee = round((10 / 100) * price.fare, 4)
+        fee = round((price.fare * 0.1), 4)
         price.fees = max(fee, 40)  # Make sure the fee is not less than 40
         price.total = price.fare + price.fees
         return price
@@ -172,7 +171,6 @@ class MockAirlinesIncService(IFlightAdapter):
         range: float,
         cruise_speed_kmh: float,
         cost_per_km: float,
-        distance_in_km: float,
         departure_time: str,
         arrival_time: str,
         fare: float,
@@ -181,11 +179,11 @@ class MockAirlinesIncService(IFlightAdapter):
         meta = Meta(range, cruise_speed_kmh, cost_per_km)
 
         cruise_speed = calculate_flight_speed(
-            distance=distance_in_km,
+            distance=range,
             arrival_time=arrival_time,
             departure_time=departure_time,
         )
-        cost = calculate_fare_per_km(fare=fare, distance=distance_in_km)
+        cost = calculate_fare_per_km(fare=fare, distance=range)
 
         meta.cruise_speed_kmh = cruise_speed
         meta.cost_per_km = cost

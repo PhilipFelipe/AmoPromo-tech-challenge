@@ -95,7 +95,7 @@ class Meta:
         }
 
 
-class Options:
+class Option:
     """This class is used to store the flight options"""
 
     def __init__(
@@ -125,7 +125,7 @@ class Options:
 class Flight:
     """This class is used to store the flight data, which consists on a summary and a list of options"""
 
-    def __init__(self, resume: Summary, options: list[Options]):
+    def __init__(self, resume: Summary, options: list[Option]):
         self.resume = resume
         self.options = options
 
@@ -137,10 +137,10 @@ class Flight:
 
 
 class OutboundFlight:
-    def __init__(self, resume: Summary, options: Options):
+    def __init__(self, resume: Summary, option: Option):
         self.flight_data = {}
         self.flight_data.update(resume.to_dict())
-        self.flight_data.update(options.to_dict())
+        self.flight_data.update(option.to_dict())
 
 
 class FlightCombination:
