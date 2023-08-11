@@ -196,17 +196,19 @@ class MockAirlinesIncService(IFlightAdapter):
         self.validate_destination_exists(destination)
         self.validate_origin_and_destination(origin, destination)
         self.validate_departure_date(departure_date)
-        self.validate_arrival_date(departure_date, return_date)
+        self.validate_return_date(departure_date, return_date)
 
     def validate_origin_exists(self, origin: str):
         iata_info = self.iata_repository.get_iata(iata=origin)
         if not iata_info["iata_code"]:
-            raise ValidationException("Origin does not exist")
+            raise ValidationException("Airport for requested origin does not exist")
 
     def validate_destination_exists(self, destination: str):
         iata_info = self.iata_repository.get_iata(iata=destination)
         if not iata_info["iata_code"]:
-            raise ValidationException("Destination does not exist")
+            raise ValidationException(
+                "Airport for requested destination does not exist"
+            )
 
     def validate_origin_and_destination(self, origin: str, destination: str):
         if origin == destination:
@@ -220,10 +222,8 @@ class MockAirlinesIncService(IFlightAdapter):
                 "Departure date must be greater than current date"
             )
 
-    def validate_arrival_date(self, departure_date: str, return_date: str):
+    def validate_return_date(self, departure_date: str, return_date: str):
         departure_datetime = convert_str_to_datetime(departure_date, format="%Y-%m-%d")
         arrival_datetime = convert_str_to_datetime(return_date, format="%Y-%m-%d")
         if arrival_datetime.date() < departure_datetime.date():
-            raise ValidationException(
-                "Arrival date must be greater than departure date"
-            )
+            raise ValidationException("Return date must be greater than departure date")
