@@ -26,6 +26,22 @@ PASSWORD = "YOUR-PASSWORD-HERE"
  ```
  **Don't forget to rename the file from ".env-example" to ".env", ok?**
 
+### Lets create a virtual enviroment and activate it
+```
+py -m venv venv
+
+# or
+python3 -m venv venv
+```
+### Activating the virtual env
+```
+# Windows
+venv\Scripts\activate
+
+# Linux or macOS
+source venv/bin/activate 
+```
+
 ### Now we need to install the project dependencies
 ```
 pip install -r requirements.txt
