@@ -33,11 +33,11 @@ py manage.py makemigrations
 py manage.py migrate
 ```
 
-### Ok, now that that our django and dabatase setup is done, what about we try running the docker?
+### Ok, now that our django and dabatase setup is done, what about we try running the docker?
 ```
 docker-compose up --build
 
-# If you're on linux or using zsh
+# or
 docker compose up --build
 ```
 
