@@ -69,3 +69,15 @@ def test_invalid_return_date_raises_exception(
         mock_airline_service.validate_return_date(
             departure_date=tomorrow, return_date=yesterday
         )
+
+def test_invalid_date_format_raises_exception(
+    mock_airline_service: MockAirlinesIncService,
+):
+    with pytest.raises(ValidationException):
+        mock_airline_service.validate_is_valid_date_format(date="111aaaaa")
+        
+def test_date_format_different_from_str_raises_exception(
+    mock_airline_service: MockAirlinesIncService,
+):
+    with pytest.raises(ValidationException):
+        mock_airline_service.validate_is_valid_date_format(date=15.0)

@@ -195,6 +195,8 @@ class MockAirlinesIncService(IFlightAdapter):
         self.validate_origin_exists(origin)
         self.validate_destination_exists(destination)
         self.validate_origin_and_destination(origin, destination)
+        self.validate_is_valid_date_format(departure_date)
+        self.validate_is_valid_date_format(return_date)
         self.validate_departure_date(departure_date)
         self.validate_return_date(departure_date, return_date)
 
@@ -213,6 +215,14 @@ class MockAirlinesIncService(IFlightAdapter):
     def validate_origin_and_destination(self, origin: str, destination: str):
         if origin == destination:
             raise ValidationException("Origin and destination must be different")
+
+    def validate_is_valid_date_format(self, date: str):
+        if type(date) != str:
+            raise ValidationException("Date must be a string")
+        try:
+            convert_str_to_datetime(date, format="%Y-%m-%d")
+        except ValueError:
+            raise ValidationException("Invalid date format. It should be YYYY-MM-DD")
 
     def validate_departure_date(self, departure_date: str):
         current_date = get_current_date()
