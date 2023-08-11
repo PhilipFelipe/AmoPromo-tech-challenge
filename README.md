@@ -70,7 +70,7 @@ docker compose up --build
  POST - http://localhost:8080/user/register
 body: {
     "username": "jonh_doe",
-    "password": "test123
+    "password": "test123"
 }
 
 # CURL
@@ -85,7 +85,7 @@ curl -X POST -H "Content-Type: application/json" -d '{
 POST - http://localhost:8080/user/obtain-token
 body: {
     "username": "jonh_doe",
-    "password": "test123
+    "password": "test123"
 }
 
 # CURL
