@@ -1,12 +1,16 @@
+from dotenv import load_dotenv
+import os
 import requests
 from requests.auth import HTTPBasicAuth
+
+load_dotenv()
 
 
 class DomesticAirportAPIConnector:
     def __init__(self):
-        self.username: str = "demo"
-        self.password: str = "swnvlD"
-        self.api_key: str = "pzrvlDwoCwlzrWJmOzviqvOWtm4dkvuc"
+        self.username: str = os.getenv("USERNAME", "")
+        self.password: str = os.getenv("PASSWORD", "")
+        self.api_key: str = os.getenv("API_KEY", "")
 
     def retrieve_airports(self) -> dict:
         url = f"https://stub.amopromo.com/air/airports/{self.api_key}"
