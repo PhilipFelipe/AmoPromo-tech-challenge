@@ -3,7 +3,7 @@ from flight.utils.calculate_flight_speed import (
     calculate_flight_speed,
     convert_str_to_datetime,
 )
-from flight.utils.calculate_cost_per_km import calculate_fare_per_km
+from flight.utils.calculate_cost_per_km import calculate_cost_per_km
 from flight.utils.time import get_current_date
 from flight.external.mock_airlines_inc_api import MockAirlineAPIConnector
 from airport.repository.iata_repository import IataRepository
@@ -183,7 +183,7 @@ class MockAirlinesIncService(IFlightAdapter):
             arrival_time=arrival_time,
             departure_time=departure_time,
         )
-        cost = calculate_fare_per_km(fare=fare, distance=range)
+        cost = calculate_cost_per_km(fare=fare, distance=range)
 
         meta.cruise_speed_kmh = cruise_speed
         meta.cost_per_km = cost
