@@ -52,6 +52,7 @@ venv.bak/
 # Django
 *.log
 *.pot
+db.sqlite3
 
 # Debug
 *.stackdump
