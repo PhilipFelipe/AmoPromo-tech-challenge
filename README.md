@@ -26,6 +26,11 @@ PASSWORD = "YOUR-PASSWORD-HERE"
  ```
  **Don't forget to rename the file from ".env-example" to ".env", ok?**
 
+### Now we need to install the project dependencies
+```
+pip install -r requirements.txt
+```
+
 ### Now, lets apply the Django migrations to setup our database
 ```
 # Maybe just "py" will not work for you, so just try using "python3" instead
